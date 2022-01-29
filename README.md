@@ -1,5 +1,7 @@
 # BIP39 Vanity Ethereum Address Generator
 
+Generate seed phrase from a vanity Ethereum address that use for MetaMask.
+
 ## Help
 
 ```
