@@ -15,7 +15,6 @@ var prefix string
 var caseSensitive bool
 
 func init() {
-	flag.StringVar(&prefix, "prefix", "cc", "vanity address prefix, default value is cc")
 	flag.BoolVar(&caseSensitive, "case-sensitive", false, "case sensitive, default value is false")
 }
 
@@ -24,7 +23,13 @@ var derivationPath = hdwallet.MustParseDerivationPath("m/44'/60'/0'/0/0")
 func main() {
 	flag.Parse()
 
-	prefix = "0x" + prefix
+	prefix = flag.Arg(0)
+	if prefix == "" {
+		fmt.Printf("Usage: %s <prefix>", os.Args[0])
+		os.Exit(0)
+	}
+
+	prefix = "0x" + strings.TrimPrefix(prefix, "0x")
 
 	fmt.Println("Computing vanity address with prefix:", prefix)
 	for i := 0; i < runtime.NumCPU()-1; i++ {
